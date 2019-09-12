@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Smart vs Dumb Knight</title>
+  <style>
+    body {
+      background: #c0c0c0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 1.5em;
+      background: #dbdada;
+    }
+
+    form {
+      padding: 1.5em 0;
+      text-align: center;
+    }
+
+    #knight_selection {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      background: #f3f3f3;
+    }
+
+    #knight_selection>div {
+      width: 300px;
+      height: 400px;
+      margin: 30px;
+      text-align: center;
+    }
+
+    #knight_selection .passive {
+      width: 100%;
+      filter: brightness(0.20) drop-shadow(0px 10px 6px rgba(39, 21, 6, 1));
+      transition: .5s;
+    }
+
+    #knight_selection .passive:hover {
+      filter: brightness(1) drop-shadow(0px 10px 10px rgba(39, 21, 6, 1));
+      transform: scale(1.2);
+    }
+
+    .active {
+      width: 100%;
+      filter: brightness(1) drop-shadow(0px 10px 10px rgb(192, 34, 47));
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <form action='KnightTour'>
+    <div>
+      <h2>Please select one of the two knights below to find out :D</h2>
+    </div>
+    <input type='hidden' id='knightType' name='type' />
+    <div id='knight_selection'>
+      <div>
+        <img onclick='selectKnight(event)' id='dumb' class='passive'
+          src="http://data.whicdn.com/images/79600439/large.png" alt="dumb knight">
+        <h2>Baka</h2>
+      </div>
+      <div>
+        <img onclick='selectKnight(event)' id='smart' class='passive'
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Z_d72jcEDJHzAdv05q86x8Nl5Eu6ySIWxqyjomYiu6Zq1X7h"
+          alt="smart knight">
+        <h2>Smarto</h2>
+      </div>
+    </div>
+
+    <div>
+      <h2>Starting Position</h2>
+      x: <input type="number" value=0 name="x" min=0 max=7 />
+      y: <input type="number" value=0 name="y" min=0 max=7 />
+    </div>
+    <div>
+      <h2>How many time would you like it to run?</h2>
+      Number of trials: <input type="number" name="num" min=0 />
+    </div>
+
+    <input type="submit" value="Start" />
+  </form>
+
+  <script>
+    const knights = [
+      document.getElementById('dumb'),
+      document.getElementById('smart'),
+    ]
+
+    function selectKnight(e) {
+      let knightType = document.getElementById('knightType');
+      knightType.value = e.target.id;
+      setFocus(e.target.id)
+      console.log(knightType);
+    }
+    function setFocus(id) {
+      knights.map(knight => {
+        if (knight.id === id) {
+          if (knight.className === 'active') knight.className = 'passive'
+          else knight.className = 'active'
+        } else {
+          knight.className = 'passive';
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
